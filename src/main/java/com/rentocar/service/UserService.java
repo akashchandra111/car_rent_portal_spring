@@ -22,4 +22,30 @@ public class UserService {
 	public User getUser(String id, String password)	{
 		return userRepo.findUser(id, password).orElse(new User());
 	}
+
+	public Message removeUser(String id, String password) {
+		User user = userRepo.findUser(id, password).orElse(new User());
+		
+		if(user.getUserId()!=null)	{
+			userRepo.delete(user);
+			return new Message("user deleted", "success");
+		}
+		else	{
+			return new Message("user not found", "failure");
+		}
+		
+	}
+
+	public Message updateUser(String id, String password, User user) {
+		User userToRemove = userRepo.findUser(id, password).orElse(new User());
+		
+		if(user.getUserId()!=null)	{
+			userRepo.delete(userToRemove);
+			userRepo.save(user);
+			return new Message("user updated", "success");
+		}
+		else	{
+			return new Message("user not found", "failure");
+		}
+	}
 }
