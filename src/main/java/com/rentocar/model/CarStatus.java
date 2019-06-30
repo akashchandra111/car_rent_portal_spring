@@ -1,25 +1,29 @@
 // CarStatus [Author: Akash Chandra]
 package com.rentocar.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class CarStatus {
+public class CarStatus implements Serializable {
 
 	@Id
 	private String carNo;
 	
-	@ManyToOne @JoinColumn(foreignKey = @ForeignKey(name = "carId"))
+	@ManyToOne @JoinColumn(foreignKey = @ForeignKey(name = "carId")) //@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Car carId;
-	@ManyToOne @JoinColumn(foreignKey = @ForeignKey(name = "userId"))
+	@ManyToOne @JoinColumn(foreignKey = @ForeignKey(name = "userId")) //@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private User userId;
 	private String status;
 	
-	public CarStatus()	{	
+	public CarStatus()	{
 	}
 	
 	public CarStatus(String carNo, Car carId, User userId, String status) {

@@ -29,7 +29,7 @@ public class UserLogController {
 	/*
 	 Accepts =>	{
 	  "userLogId": "string",
-	  "userId": "string",
+	  "userId": "User",
 	  "startTime": "string",
 	  "endTime": "string",
 	  "currentLocation": "string",
@@ -56,17 +56,16 @@ public class UserLogController {
 	}
 	
 	/*
-	 Returns => { 
-	 "userId": "string",
-	  "firstName": "string",
-	  "lastName": "string",
-	  "mobileNum": "string",
-	  "govtIdType": "string",
-	  "govtIdNum": "string",
-	  "userName": "string",
-	  "password": "string",
-	  "email": "string",
-	  "wallet": "number"
+	 Returns => {
+	  "userLogId": "string",
+	  "userId": "User",
+	  "startTime": "string",
+	  "endTime": "string",
+	  "currentLocation": "string",
+	  "dropLocation": "string",
+	  "secretKey": "string",
+	  "totalAmount": "number",
+	  "paidAmount" "number",
 	 }
 	 */
 	@GetMapping("/latest_booking")
@@ -82,17 +81,16 @@ public class UserLogController {
 	}
 	
 	/*
-	 Returns => [{ 
-	 "userId": "string",
-	  "firstName": "string",
-	  "lastName": "string",
-	  "mobileNum": "string",
-	  "govtIdType": "string",
-	  "govtIdNum": "string",
-	  "userName": "string",
-	  "password": "string",
-	  "email": "string",
-	  "wallet": "number"
+	 Returns => [{
+	  "userLogId": "string",
+	  "userId": "User",
+	  "startTime": "string",
+	  "endTime": "string",
+	  "currentLocation": "string",
+	  "dropLocation": "string",
+	  "secretKey": "string",
+	  "totalAmount": "number",
+	  "paidAmount" "number",
 	 }]
 	 */
 	@GetMapping("/book_history")
@@ -126,6 +124,24 @@ public class UserLogController {
 		}
 	}
 	
+	/*
+	Accepts =>	{
+	  "userLogId": "string",
+	  "userId": "User",
+	  "startTime": "string",
+	  "endTime": "string",
+	  "currentLocation": "string",
+	  "dropLocation": "string",
+	  "secretKey": "string",
+	  "totalAmount": "number",
+	  "paidAmount" "number",
+	 }
+	 
+	 Returns =>	{
+	  "message": "string",
+	  "status": "string"
+	 }
+	 */
 	@PutMapping("/update_booking/{bookingId}")
 	public Message updateBooking(@PathVariable("bookingId")String bookingId, @RequestBody UserLog userLog, HttpSession userSession)	{
 		User user = (User) userSession.getAttribute("user");

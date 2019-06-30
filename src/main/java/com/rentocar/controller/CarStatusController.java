@@ -26,8 +26,8 @@ public class CarStatusController {
 	/*
 	Accepts =>	{
 	 "carno": "string",
-	 "carid": "string",
-	 "userid": "string",
+	 "carid": "Car",
+	 "userid": "User",
 	 "status": "string"
 	}
 	
@@ -53,8 +53,8 @@ public class CarStatusController {
 	Accepts =>	carNo
 	Returns =>	{
 	 "carno": "string",
-	 "carid": "string",
-	 "userid": "string",
+	 "carid": "Car",
+	 "userid": "User",
 	 "status": "string"
 	}
 	*/
@@ -67,8 +67,8 @@ public class CarStatusController {
 	Accepts =>	carId
 	Returns =>	{
 	 "carno": "string",
-	 "carid": "string",
-	 "userid": "string",
+	 "carid": "Car",
+	 "userid": "User",
 	 "status": "string"
 	}
 	*/

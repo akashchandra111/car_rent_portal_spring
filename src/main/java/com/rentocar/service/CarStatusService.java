@@ -51,7 +51,7 @@ public class CarStatusService {
 	public CarStatus getCarById(String carId)	{
 		List<CarStatus> carStatusList = carStatusRepo.findByCarId(carId);
 		
-		if(carStatusList != null)	{
+		if(carStatusList != null && carStatusList.size() >= 1)	{
 			return carStatusList.get(0);
 		}
 		else	{

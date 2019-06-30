@@ -1,6 +1,8 @@
 // UserLog [Author: Akash Chandra]
 package com.rentocar.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class UserLog {
+public class UserLog implements Serializable	{
 	
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private String userLogId;

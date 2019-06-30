@@ -1,11 +1,13 @@
 // CarStatusRepository [Author: Akash Chandra]
 package com.rentocar.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Car {
+public class Car implements Serializable	{
 
 	@Id
 	private String carId;

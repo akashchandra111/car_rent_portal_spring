@@ -28,7 +28,7 @@ public class UserLogService {
 	public UserLog getBooking(String userId)	{
 		List<UserLog> userLogList = this.getBookingHistory(userId);
 		
-		if(userLogList != null)	return userLogList.get(0);
+		if(userLogList != null && userLogList.size() >= 1)	return userLogList.get(0);
 		else	return new UserLog();
 	}
 
