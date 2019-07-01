@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rentocar.model.Login;
@@ -17,6 +18,7 @@ import com.rentocar.model.User;
 import com.rentocar.service.UserService;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
@@ -150,7 +152,7 @@ public class UserController {
 	  "wallet": "number"
 	 }
 	 */
-	@GetMapping("/getUser")
+	@GetMapping("/get_user")
 	public User getUser(HttpSession userSession)	{
 		User user = (User) userSession.getAttribute("user");
 		if(user != null)	{

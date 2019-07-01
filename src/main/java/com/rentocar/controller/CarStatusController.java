@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rentocar.model.CarStatus;
@@ -18,6 +19,7 @@ import com.rentocar.model.User;
 import com.rentocar.service.CarStatusService;
 
 @RestController
+@RequestMapping("/car_status")
 public class CarStatusController {
 
 	@Autowired
@@ -36,7 +38,7 @@ public class CarStatusController {
 	 "status": "string"
 	}
 	*/
-	@PostMapping("/add_car_status")
+	@PostMapping("/add")
 	public Message addCarStatus(@RequestBody CarStatus carStatus, HttpSession userSession)	{
 		User user = (User) userSession.getAttribute("user");
 		
@@ -58,7 +60,7 @@ public class CarStatusController {
 	 "status": "string"
 	}
 	*/
-	@GetMapping("/get_car_status/{carNo}")
+	@GetMapping("/get/{carNo}")
 	public CarStatus getCarStatus(@PathVariable("carNo") String carNo)	{
 		return carStatusService.getCar(carNo);
 	}
@@ -72,7 +74,7 @@ public class CarStatusController {
 	 "status": "string"
 	}
 	*/
-	@GetMapping("/by_id/get_car_status/{carId}")
+	@GetMapping("/by_id/get/{carId}")
 	public CarStatus getCarStatusById(@PathVariable("carId") String carId)	{
 		return carStatusService.getCarById(carId);
 	}
@@ -84,8 +86,8 @@ public class CarStatusController {
 	 "status": "string"
 	}
 	*/
-	@PutMapping("/update_car_status/{carNo}")
-	public Message updateCarStatus(@PathVariable("carNo") String carNo, CarStatus carStatus, HttpSession userSession)	{
+	@PutMapping("/update/{carNo}")
+	public Message updateCarStatus(@PathVariable("carNo") String carNo, @RequestBody CarStatus carStatus, HttpSession userSession)	{
 		User user = (User) userSession.getAttribute("user");
 		
 		if(user != null)	return carStatusService.updateCarStatus(carNo, carStatus);
@@ -99,7 +101,7 @@ public class CarStatusController {
 	 "status": "string"
 	}
 	 */
-	@DeleteMapping("/delete_car_stataus/{carNo}")
+	@DeleteMapping("/delete/{carNo}")
 	public Message deleteCarStatus(@PathVariable("carNo") String carNo, HttpSession userSession)	{
 		User user = (User) userSession.getAttribute("user");
 		

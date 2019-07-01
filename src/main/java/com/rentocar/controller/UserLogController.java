@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rentocar.model.Message;
@@ -21,6 +22,7 @@ import com.rentocar.model.UserLog;
 import com.rentocar.service.UserLogService;
 
 @RestController
+@RequestMapping("/user_log")
 public class UserLogController {
 
 	@Autowired
@@ -43,7 +45,7 @@ public class UserLogController {
 	  "status": "string"
 	 }
 	*/
-	@PostMapping("/add_booking")
+	@PostMapping("/add")
 	public Message bookCar(@RequestBody UserLog userLog, HttpSession userSession)	{
 		User user = (User) userSession.getAttribute("user");
 		
@@ -68,7 +70,7 @@ public class UserLogController {
 	  "paidAmount" "number",
 	 }
 	 */
-	@GetMapping("/latest_booking")
+	@GetMapping("/latest")
 	public UserLog getBooking(HttpSession userSession)	{
 		User user = (User) userSession.getAttribute("user");
 		
@@ -93,7 +95,7 @@ public class UserLogController {
 	  "paidAmount" "number",
 	 }]
 	 */
-	@GetMapping("/book_history")
+	@GetMapping("/history")
 	public List<UserLog> getHistory(HttpSession userSession)	{
 		User user = (User) userSession.getAttribute("user");
 		
@@ -112,7 +114,7 @@ public class UserLogController {
 	 "status": "string"
 	}
 	 */
-	@DeleteMapping("/cancel_booking/{bookingId}")
+	@DeleteMapping("/cancel/{bookingId}")
 	public Message deleteBooking(@PathVariable("bookingId") String bookingId, HttpSession userSession)	{
 		User user = (User) userSession.getAttribute("user");
 		
@@ -142,7 +144,7 @@ public class UserLogController {
 	  "status": "string"
 	 }
 	 */
-	@PutMapping("/update_booking/{bookingId}")
+	@PutMapping("/update/{bookingId}")
 	public Message updateBooking(@PathVariable("bookingId")String bookingId, @RequestBody UserLog userLog, HttpSession userSession)	{
 		User user = (User) userSession.getAttribute("user");
 		

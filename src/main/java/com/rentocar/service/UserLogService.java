@@ -49,13 +49,11 @@ public class UserLogService {
 		
 		if(booking.getUserLogId() != null)	{
 			userLogRepo.deleteById(bookingId);
-			if(userLogRepo.save(userLog) != null)	return new Message("booking deleted", "success");
-			else	return new Message("booking not deleted", "failure");
+			if(userLogRepo.save(userLog) != null)	return new Message("booking updated", "success");
+			else	return new Message("booking not updated", "failure");
 		}
 		else	{
-			return new Message("booking not deleted", "failure");
+			return new Message("booking not updated, booking id not found", "failure");
 		}
 	}
-	
-	
 }

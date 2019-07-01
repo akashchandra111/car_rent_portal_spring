@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rentocar.model.Car;
@@ -20,6 +21,7 @@ import com.rentocar.model.User;
 import com.rentocar.service.CarService;
 
 @RestController
+@RequestMapping("/car")
 public class CarController {
 
 	@Autowired
@@ -42,7 +44,7 @@ public class CarController {
 	 "status": "string"
 	}
 	 */
-	@PostMapping("/add_car")
+	@PostMapping("/add")
 	public Message addCar(@RequestBody Car car, HttpSession userSession)	{
 		User user = (User) userSession.getAttribute("user");
 		
@@ -68,7 +70,7 @@ public class CarController {
 	 "cost": "number"
 	}
 	 */
-	@GetMapping("/get_car/{carId}")
+	@GetMapping("/get/{carId}")
 	public Car getCar(@PathVariable("carId") String carId)	{
 		return carService.getCar(carId);
 	}
@@ -87,7 +89,7 @@ public class CarController {
 	 "cost": "number"
 	}]
 	 */
-	@GetMapping("/get_car_type/{type}")
+	@GetMapping("/get_by_type/{type}")
 	public List<Car> getCarsByType(@PathVariable("type") String type)	{
 		return carService.getCarsByType(type);
 	}
@@ -100,7 +102,7 @@ public class CarController {
 	 "status" : "string"
 	}
 	 */
-	@PutMapping("/update_car/{carId}")
+	@PutMapping("/update/{carId}")
 	public Message updateCar(@PathVariable("carId") String carId, @RequestBody Car car, HttpSession userSession)	{
 		User user = (User) userSession.getAttribute("user");
 		
@@ -120,7 +122,7 @@ public class CarController {
 	 "status": "string"
 	}
 	 */
-	@DeleteMapping("/delete_car/{carId}")
+	@DeleteMapping("/delete/{carId}")
 	public Message deleteCar(@PathVariable("carId") String carId, HttpSession userSession)	{
 		User user = (User) userSession.getAttribute("user");
 		
