@@ -4,6 +4,7 @@ package com.rentocar.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.rentocar.model.Message;
 import com.rentocar.model.User;
 import com.rentocar.service.CarStatusService;
 
+@CrossOrigin()
 @RestController
 @RequestMapping("/car_status")
 public class CarStatusController {
@@ -74,6 +76,7 @@ public class CarStatusController {
 	 "status": "string"
 	}
 	*/
+	
 	@GetMapping("/by_id/get/{carId}")
 	public CarStatus getCarStatusById(@PathVariable("carId") String carId)	{
 		return carStatusService.getCarById(carId);

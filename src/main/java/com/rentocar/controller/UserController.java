@@ -156,7 +156,7 @@ public class UserController {
 	public User getUser(HttpSession userSession)	{
 		User user = (User) userSession.getAttribute("user");
 		if(user != null)	{
-			return userService.getUser(user.getUserId(), user.getPassword());
+			return userService.getUser(user.getUserName(), user.getPassword());
 		}
 		else	return new User();
 	}
