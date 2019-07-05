@@ -1,10 +1,7 @@
 // UserLogController [Author: Akash Chandra]
 package com.rentocar.controller;
 
-import java.util.Arrays;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rentocar.model.Message;
-import com.rentocar.model.User;
 import com.rentocar.model.UserLog;
 import com.rentocar.service.UserLogService;
 
@@ -46,15 +42,8 @@ public class UserLogController {
 	 }
 	*/
 	@PostMapping("/add")
-	public Message bookCar(@RequestBody UserLog userLog, HttpSession userSession)	{
-		User user = (User) userSession.getAttribute("user");
-		
-		if(user != null)	{
+	public Message bookCar(@RequestBody UserLog userLog)	{
 			return userLogService.bookCar(userLog);
-		}
-		else	{
-			return new Message("user session not found, car booking failed", "failure");
-		}
 	}
 	
 	/*
@@ -70,16 +59,9 @@ public class UserLogController {
 	  "paidAmount" "number",
 	 }
 	 */
-	@GetMapping("/latest")
-	public UserLog getBooking(HttpSession userSession)	{
-		User user = (User) userSession.getAttribute("user");
-		
-		if(user != null)	{
-			return userLogService.getBooking(user.getUserId());
-		}
-		else	{
-			return new UserLog();
-		}
+	@GetMapping("/latest/{userId}")
+	public UserLog getBooking(@PathVariable("userId") String userId)	{
+			return userLogService.getBooking(userId);
 	}
 	
 	/*
@@ -95,16 +77,9 @@ public class UserLogController {
 	  "paidAmount" "number",
 	 }]
 	 */
-	@GetMapping("/history")
-	public List<UserLog> getHistory(HttpSession userSession)	{
-		User user = (User) userSession.getAttribute("user");
-		
-		if(user != null)	{
-			return userLogService.getBookingHistory(user.getUserId());
-		}
-		else	{
-			return Arrays.asList(new UserLog());
-		}
+	@GetMapping("/history/{userId}")
+	public List<UserLog> getHistory(@PathVariable("userId") String userId)	{
+		return userLogService.getBookingHistory(userId);
 	}
 	
 	/*
@@ -115,15 +90,8 @@ public class UserLogController {
 	}
 	 */
 	@DeleteMapping("/cancel/{bookingId}")
-	public Message deleteBooking(@PathVariable("bookingId") String bookingId, HttpSession userSession)	{
-		User user = (User) userSession.getAttribute("user");
-		
-		if(user != null)	{
-			return userLogService.deleteBooking(bookingId);
-		}
-		else	{
-			return new Message("user session not found, can't delete", "failure");
-		}
+	public Message deleteBooking(@PathVariable("bookingId") String bookingId)	{
+		return userLogService.deleteBooking(bookingId);
 	}
 	
 	/*
@@ -145,14 +113,7 @@ public class UserLogController {
 	 }
 	 */
 	@PutMapping("/update/{bookingId}")
-	public Message updateBooking(@PathVariable("bookingId")String bookingId, @RequestBody UserLog userLog, HttpSession userSession)	{
-		User user = (User) userSession.getAttribute("user");
-		
-		if(user != null)	{
-			return userLogService.updateBooking(bookingId, userLog);
-		}
-		else	{
-			return new Message("user session not found, can't udpate", "failure");
-		}
+	public Message updateBooking(@PathVariable("bookingId")String bookingId, @RequestBody UserLog userLog)	{
+		return userLogService.updateBooking(bookingId, userLog);
 	}
 }

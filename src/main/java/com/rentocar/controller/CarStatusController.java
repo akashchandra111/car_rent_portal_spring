@@ -1,8 +1,6 @@
 // CarStatusController [Author: Akash Chandra]
 package com.rentocar.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rentocar.model.CarStatus;
 import com.rentocar.model.Message;
-import com.rentocar.model.User;
 import com.rentocar.service.CarStatusService;
 
 @CrossOrigin()
@@ -41,15 +38,8 @@ public class CarStatusController {
 	}
 	*/
 	@PostMapping("/add")
-	public Message addCarStatus(@RequestBody CarStatus carStatus, HttpSession userSession)	{
-		User user = (User) userSession.getAttribute("user");
-		
-		if((user != null) && (user.getUserId().equals("0")))	{
-			return carStatusService.addNewCarStatus(carStatus);
-		}
-		else	{
-			return new Message("car can't be added user is not admin or null", "failure");
-		}
+	public Message addCarStatus(@RequestBody CarStatus carStatus)	{
+		return carStatusService.addNewCarStatus(carStatus);
 	}
 	
 	
@@ -90,11 +80,8 @@ public class CarStatusController {
 	}
 	*/
 	@PutMapping("/update/{carNo}")
-	public Message updateCarStatus(@PathVariable("carNo") String carNo, @RequestBody CarStatus carStatus, HttpSession userSession)	{
-		User user = (User) userSession.getAttribute("user");
-		
-		if(user != null)	return carStatusService.updateCarStatus(carNo, carStatus);
-		else	return new Message("user session not found, can't update car status", "failure");
+	public Message updateCarStatus(@PathVariable("carNo") String carNo, @RequestBody CarStatus carStatus)	{
+		return carStatusService.updateCarStatus(carNo, carStatus);
 	}
 	
 	/*
@@ -105,14 +92,7 @@ public class CarStatusController {
 	}
 	 */
 	@DeleteMapping("/delete/{carNo}")
-	public Message deleteCarStatus(@PathVariable("carNo") String carNo, HttpSession userSession)	{
-		User user = (User) userSession.getAttribute("user");
-		
-		if((user != null) && (user.getUserId().equals("0")))	{
-			return carStatusService.deleteCarStatus(carNo);
-		}
-		else	{
-			return new Message("user is not admin or session not found", "failure");
-		}
+	public Message deleteCarStatus(@PathVariable("carNo") String carNo)	{
+		return carStatusService.deleteCarStatus(carNo);
 	}
 }

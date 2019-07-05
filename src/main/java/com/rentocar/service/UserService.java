@@ -36,11 +36,11 @@ public class UserService {
 		
 	}
 
-	public Message updateUser(String id, String password, User user) {
-		User userToRemove = userRepo.findUser(id, password).orElse(new User());
+	public Message updateUser(User user) {
+//		User userToRemove = userRepo.findUser(user.id, password).orElse(new User());
 		
 		if(user.getUserId()!=null)	{
-			userRepo.delete(userToRemove);
+			userRepo.deleteById(user.getUserId());
 			userRepo.save(user);
 			return new Message("user updated", "success");
 		}

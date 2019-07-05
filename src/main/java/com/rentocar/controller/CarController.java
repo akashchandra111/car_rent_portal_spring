@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rentocar.model.Car;
 import com.rentocar.model.Message;
-import com.rentocar.model.User;
 import com.rentocar.service.CarService;
 
 @RestController
@@ -45,15 +44,8 @@ public class CarController {
 	}
 	 */
 	@PostMapping("/add")
-	public Message addCar(@RequestBody Car car, HttpSession userSession)	{
-		User user = (User) userSession.getAttribute("user");
-		
-		if((user != null) && (user.getUserId().equals("0")))	{
+	public Message addCar(@RequestBody Car car)	{
 			return carService.addCar(car);
-		}
-		else	{
-			return new Message("user session not found, user is not admin", "failure");
-		}
 	}
 	
 	/*
@@ -89,7 +81,7 @@ public class CarController {
 	 "cost": "number"
 	}]
 	 */
-	@GetMapping("/get_by_type/{type}")
+	@GetMapping("/type/{type}")
 	public List<Car> getCarsByType(@PathVariable("type") String type)	{
 		return carService.getCarsByType(type);
 	}
@@ -104,14 +96,7 @@ public class CarController {
 	 */
 	@PutMapping("/update/{carId}")
 	public Message updateCar(@PathVariable("carId") String carId, @RequestBody Car car, HttpSession userSession)	{
-		User user = (User) userSession.getAttribute("user");
-		
-		if((user != null) && (user.getUserId().equals("0")))	{
 			return carService.updateCar(carId, car);
-		}
-		else	{
-			return new Message("user is not admin or session not found", "failure");
-		}
 	}
 	
 	/*
@@ -123,14 +108,7 @@ public class CarController {
 	}
 	 */
 	@DeleteMapping("/delete/{carId}")
-	public Message deleteCar(@PathVariable("carId") String carId, HttpSession userSession)	{
-		User user = (User) userSession.getAttribute("user");
-		
-		if((user!=null) && (user.getUserId().equals("0")))	{
+	public Message deleteCar(@PathVariable("carId") String carId)	{
 			return carService.deleteCar(carId);
-		}
-		else	{
-			return new Message("user is not admin or session not found", "failure");
-		}
 	}
 }
