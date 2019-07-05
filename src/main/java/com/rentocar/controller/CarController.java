@@ -95,7 +95,7 @@ public class CarController {
 	}
 	 */
 	@PutMapping("/update/{carId}")
-	public Message updateCar(@PathVariable("carId") String carId, @RequestBody Car car, HttpSession userSession)	{
+	public Message updateCar(@PathVariable("carId") String carId, @RequestBody Car car)	{
 			return carService.updateCar(carId, car);
 	}
 	
