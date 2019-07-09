@@ -1,6 +1,8 @@
 // CarStatusController [Author: Akash Chandra]
 package com.rentocar.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -94,5 +96,20 @@ public class CarStatusController {
 	@DeleteMapping("/delete/{carNo}")
 	public Message deleteCarStatus(@PathVariable("carNo") String carNo)	{
 		return carStatusService.deleteCarStatus(carNo);
+	}
+	
+	@GetMapping("/total")
+	public List<CarStatus> getTotalCar()	{
+		return carStatusService.getTotalCar();
+	}
+	
+	@GetMapping("/booked/{carType}")
+	public List<CarStatus> getTotalBookedOfCarType(@PathVariable("carType") String carType)	{
+		return carStatusService.getTotalBookedOfCarType(carType);
+	}
+	
+	@GetMapping("/available/{carType}")
+	public List<CarStatus> getTotalAvailableOfCarType(@PathVariable("carType") String carType)	{
+		return carStatusService.getTotalAvailableOfCarType(carType);
 	}
 }

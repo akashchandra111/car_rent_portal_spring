@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class UserLog implements Serializable	{
 	
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	@Id 
 	private String userLogId;
 	@ManyToOne @JoinColumn(foreignKey = @ForeignKey(name = "userId"))
 	private User userId;
@@ -108,4 +108,5 @@ public class UserLog implements Serializable	{
 	public void setPaidAmount(int paidAmount) {
 		this.paidAmount = paidAmount;
 	}
+
 }

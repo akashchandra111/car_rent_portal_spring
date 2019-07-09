@@ -48,4 +48,8 @@ public class UserService {
 			return new Message("user not found", "failure");
 		}
 	}
+
+	public long getTotalUsers() {
+		return userRepo.findAll().stream().count();
+	}
 }

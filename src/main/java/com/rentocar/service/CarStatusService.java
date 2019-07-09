@@ -52,10 +52,26 @@ public class CarStatusService {
 		List<CarStatus> carStatusList = carStatusRepo.findByCarId(carId);
 		
 		if(carStatusList != null && carStatusList.size() >= 1)	{
-			return carStatusList.get(0);
+			// Return only available car or empty
+			for(CarStatus carStatus: carStatusList)	{
+				if(carStatus.getStatus().equals("available"))	return carStatus;
+			}
+			return new CarStatus();
 		}
 		else	{
 			return new CarStatus();
 		}
+	}
+
+	public List<CarStatus> getTotalCar() {
+		return carStatusRepo.findAll();
+	}
+
+	public List<CarStatus> getTotalBookedOfCarType(String carType) {
+		return carStatusRepo.getTotalBookedOfCarType(carType);
+	}
+
+	public List<CarStatus> getTotalAvailableOfCarType(String carType) {
+		return carStatusRepo.getTotalAvailableOfCarType(carType);
 	}
 }
