@@ -4,6 +4,7 @@ package com.rentocar.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -84,9 +85,9 @@ public class UserController {
 	  "status": "string"
 	 } 
 	*/
-	@DeleteMapping("/deregister")
-	public Message deRegisterUser(@RequestBody Login userLogin)	{
-		return userService.removeUser(userLogin.getId(), userLogin.getPassword());
+	@DeleteMapping("/deregister/{userId}")
+	public Message deRegisterUser(@PathVariable("userId") String userId)	{
+		return userService.removeUser(userId);
 	}
 	
 	/*
@@ -152,5 +153,10 @@ public class UserController {
 	@GetMapping("/total")
 	public long getTotalUsers()	{
 		return userService.getTotalUsers();
+	}
+	
+	@GetMapping("/forgot_password/{drivingLicenseNum}")
+	public User getUserDetails(@PathVariable("drivingLicenseNum") String drivingLicenseNum)	{
+		return userService.getUserByDrivingLicenseNo(drivingLicenseNum);
 	}
 }

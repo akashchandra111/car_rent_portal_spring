@@ -11,20 +11,21 @@ public class User implements Serializable	{
 	
 	@Id
 	private String userId;	
-	private String firstName, lastName, mobileNum, govtIdType, govtIdNum, userName, password, email;
+	private String firstName, lastName, mobileNum, govtIdType, govtIdNum, drivingLicenseNum, userName, password, email;
 	private Integer wallet;
 	
 	public User()	{
 	}
 
 	public User(String userId, String firstName, String lastName, String mobileNum, String govtIdType, String govtIdNum,
-			String userName, String password, String email, Integer wallet) {
+			String drivingLicenseNum, String userName, String password, String email, Integer wallet) {
 		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mobileNum = mobileNum;
 		this.govtIdType = govtIdType;
 		this.govtIdNum = govtIdNum;
+		this.drivingLicenseNum = drivingLicenseNum;
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
@@ -77,6 +78,14 @@ public class User implements Serializable	{
 
 	public void setGovtIdNum(String govtIdNum) {
 		this.govtIdNum = govtIdNum;
+	}
+	
+	public String getDrivingLicenseNum()	{
+		return drivingLicenseNum;
+	}
+	
+	public void setDrivingLicenseNum(String drivingLicenseNum)	{
+		this.drivingLicenseNum = drivingLicenseNum;
 	}
 
 	public String getUserName() {

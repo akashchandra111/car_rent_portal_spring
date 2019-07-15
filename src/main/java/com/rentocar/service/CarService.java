@@ -4,6 +4,7 @@ package com.rentocar.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.rentocar.model.Car;
@@ -43,11 +44,11 @@ public class CarService {
 	}
 
 	public Message deleteCar(String carId) {
-		if(carRepo.findById(carId) != null)	{
+		try	{
 			carRepo.deleteById(carId);
 			return new Message("car deleted", "success");
 		}
-		else	{
+		catch(EmptyResultDataAccessException emptyResultData)	{
 			return new Message("car can't be deleted, id not found", "failure");
 		}
 	}

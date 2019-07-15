@@ -2,6 +2,7 @@
 package com.rentocar.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.rentocar.model.Message;
@@ -23,17 +24,14 @@ public class UserService {
 		return userRepo.findUser(id, password).orElse(new User());
 	}
 
-	public Message removeUser(String id, String password) {
-		User user = userRepo.findUser(id, password).orElse(new User());
-		
-		if(user.getUserId()!=null)	{
-			userRepo.delete(user);
+	public Message removeUser(String userId) {
+		try	{
+			userRepo.deleteById(userId);
 			return new Message("user deleted", "success");
 		}
-		else	{
+		catch(EmptyResultDataAccessException emptyResultData)	{
 			return new Message("user not found", "failure");
 		}
-		
 	}
 
 	public Message updateUser(User user) {
@@ -51,5 +49,9 @@ public class UserService {
 
 	public long getTotalUsers() {
 		return userRepo.findAll().stream().count();
+	}
+
+	public User getUserByDrivingLicenseNo(String drivingLicenseNum) {
+		return userRepo.findByDrivingLicenseNum(drivingLicenseNum).orElse(new User());
 	}
 }
