@@ -19,13 +19,14 @@ public class UserLog implements Serializable	{
 	@ManyToOne @JoinColumn(foreignKey = @ForeignKey(name = "userId"))
 	private User userId;
 	private String startTime, endTime, currentLocation, dropLocation, secretKey;
-	private int totalAmount, paidAmount;
+	private int totalAmount;
+	private String carNo;
 	
 	public UserLog()	{	
 	}
 
 	public UserLog(String userLogId, User userId, String startTime, String endTime, String currentLocation, String dropLocation,
-			String secretKey, int totalAmount, int paidAmount) {
+			String secretKey, int totalAmount, String carNo) {
 		this.userLogId = userLogId;
 		this.userId = userId;
 		this.startTime = startTime;
@@ -34,7 +35,7 @@ public class UserLog implements Serializable	{
 		this.dropLocation = dropLocation;
 		this.secretKey = secretKey;
 		this.totalAmount = totalAmount;
-		this.paidAmount = paidAmount;
+		this.carNo = carNo;
 	}
 
 	public String getUserLogId() {
@@ -101,12 +102,11 @@ public class UserLog implements Serializable	{
 		this.totalAmount = totalAmount;
 	}
 
-	public int getPaidAmount() {
-		return paidAmount;
+	public String getCarNo() {
+		return carNo;
 	}
 
-	public void setPaidAmount(int paidAmount) {
-		this.paidAmount = paidAmount;
+	public void setCarNo(String carNo) {
+		this.carNo = carNo;
 	}
-
 }
