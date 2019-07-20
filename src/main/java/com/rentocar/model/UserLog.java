@@ -3,20 +3,14 @@ package com.rentocar.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+@Document(collection="user_log")
 public class UserLog implements Serializable	{
 	
-	@Id 
+	@Id
 	private String userLogId;
-	@ManyToOne @JoinColumn(foreignKey = @ForeignKey(name = "userId"))
 	private User userId;
 	private String startTime, endTime, currentLocation, dropLocation, secretKey;
 	private int totalAmount;

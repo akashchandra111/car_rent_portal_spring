@@ -8,8 +8,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.rentocar.model.Car;
-import com.rentocar.model.CarRepository;
 import com.rentocar.model.Message;
+import com.rentocar.repository.CarRepository;
 
 @Service
 public class CarService {

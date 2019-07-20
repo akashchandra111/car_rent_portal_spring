@@ -1,6 +1,7 @@
 // UserLogService [Author: Akash Chandra]
 package com.rentocar.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.rentocar.model.Message;
 import com.rentocar.model.UserLog;
-import com.rentocar.model.UserLogRepository;
+import com.rentocar.repository.UserLogRepository;
 
 @Service
 public class UserLogService {
@@ -22,7 +23,33 @@ public class UserLogService {
 	}
 
 	public List<UserLog> getBookingHistory(String userId) {
-		return userLogRepo.findByUserId(userId);
+//		return userLogRepo.findByUserId(userId);
+		List<UserLog> bookingHistory = userLogRepo.findUserLogByUserId(userId);
+		
+//		Collections.sort(bookingHistory,
+//			new Comparator<UserLog>()	{
+//				@Override
+//				public int compare(UserLog user1, UserLog user2)	{
+//					if(new Long(user1.getStartTime()) > new Long(user2.getStartTime()))	{
+//						return 1;
+//					}
+//					else	{
+//						return -1;
+//					}
+//				}
+//			}
+//		);
+		
+		Collections.sort(bookingHistory, 
+			(user1, user2) ->	{
+				if(new Long(user1.getStartTime()) > new Long(user2.getStartTime()))	{
+					return 1;
+				}
+				else return -1;
+			}
+		);
+		
+		return bookingHistory;
 	}
 	
 	public UserLog getBooking(String userId)	{

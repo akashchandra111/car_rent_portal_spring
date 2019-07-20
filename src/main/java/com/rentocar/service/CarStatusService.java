@@ -2,14 +2,15 @@
 package com.rentocar.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.rentocar.model.CarStatus;
-import com.rentocar.model.CarStatusRepository;
 import com.rentocar.model.Message;
+import com.rentocar.repository.CarStatusRepository;
 
 @Service
 public class CarStatusService {
@@ -50,7 +51,11 @@ public class CarStatusService {
 	}
 	
 	public CarStatus getCarById(String carId)	{
-		List<CarStatus> carStatusList = carStatusRepo.findByCarId(carId);
+//		List<CarStatus> carStatusList = carStatusRepo.findByCarId(carId);
+		
+		List<CarStatus> carStatusList = carStatusRepo.findAll().stream()
+				.filter(carStatus -> carStatus.getCarId().equals(carId))
+				.collect(Collectors.toList());
 		
 		if(carStatusList != null && carStatusList.size() >= 1)	{
 			// Return only available car or empty
@@ -69,10 +74,30 @@ public class CarStatusService {
 	}
 
 	public List<CarStatus> getTotalBookedOfCarType(String carType) {
-		return carStatusRepo.getTotalBookedOfCarType(carType);
+//		return carStatusRepo.getTotalBookedOfCarType(carType);
+		
+//		return carStatusRepo.findCarStatusByCarType(carType)
+//				.stream()
+//				.filter(carStatus -> carStatus.getStatus().equals("booked"))
+//				.collect(Collectors.toList());
+		
+		return carStatusRepo.findAll()
+				.stream()
+				.filter(carStatus -> carStatus.getCarId().getCarType().equals(carType))
+				.collect(Collectors.toList());
 	}
 
 	public List<CarStatus> getTotalAvailableOfCarType(String carType) {
-		return carStatusRepo.getTotalAvailableOfCarType(carType);
+//		return carStatusRepo.getTotalAvailableOfCarType(carType);
+		
+//		return carStatusRepo.findCarStatusByCarType(carType)
+//				.stream()
+//				.filter(carStatus -> carStatus.getStatus().equals("available"))
+//				.collect(Collectors.toList());
+		 
+		return carStatusRepo.findAll()
+				.stream()
+				.filter(carStatus -> carStatus.getCarId().getCarType().equals(carType))
+				.collect(Collectors.toList());
 	}
 }

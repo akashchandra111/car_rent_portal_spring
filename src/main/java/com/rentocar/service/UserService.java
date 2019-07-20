@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.rentocar.model.Message;
 import com.rentocar.model.User;
-import com.rentocar.model.UserRepository;
+import com.rentocar.repository.UserRepository;
 
 @Service
 public class UserService {
@@ -21,7 +21,18 @@ public class UserService {
 	}
 	
 	public User getUser(String id, String password)	{
-		return userRepo.findUser(id, password).orElse(new User());
+		return userRepo.findAll()
+				.stream()
+				.filter(
+						(user) ->	{
+							if((user.getUserId().equals(id) || 
+									user.getUserName().equals(id) || 
+									user.getEmail().equals(id) || 
+									user.getMobileNum().equals(id)) && 
+							user.getPassword().equals(password))	return true;
+							else return false;
+						}
+				).findFirst().orElse(new User());
 	}
 
 	public Message removeUser(String userId) {
@@ -52,6 +63,6 @@ public class UserService {
 	}
 
 	public User getUserByDrivingLicenseNo(String drivingLicenseNum) {
-		return userRepo.findByDrivingLicenseNum(drivingLicenseNum).orElse(new User());
+		return userRepo.findUserByDrivingLicenseNum(drivingLicenseNum).orElse(new User());
 	}
 }
