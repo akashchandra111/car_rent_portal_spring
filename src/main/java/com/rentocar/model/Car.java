@@ -3,11 +3,12 @@ package com.rentocar.model;
 
 import java.io.Serializable;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="Car")
 public class Car implements Serializable	{
-
+	@Id
 	private String carId;
 	private String carType, mileage, seaters, description, carName, imgPath;
 	private int cost;
