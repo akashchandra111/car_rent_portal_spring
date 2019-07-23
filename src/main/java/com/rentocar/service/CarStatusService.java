@@ -53,8 +53,13 @@ public class CarStatusService {
 	public CarStatus getCarById(String carId)	{
 //		List<CarStatus> carStatusList = carStatusRepo.findByCarId(carId);
 		
-		List<CarStatus> carStatusList = carStatusRepo.findAll().stream()
-				.filter(carStatus -> carStatus.getCarId().equals(carId))
+//		List<CarStatus> carStatusList = carStatusRepo.findAll().stream()
+//				.filter(carStatus -> carStatus.getCarId().equals(carId))
+//				.collect(Collectors.toList());
+		
+		List<CarStatus> carStatusList = carStatusRepo.findAll()
+				.stream()
+				.filter(carStatus -> carStatus.getCarId().getCarId().equals(carId))
 				.collect(Collectors.toList());
 		
 		if(carStatusList != null && carStatusList.size() >= 1)	{
@@ -84,6 +89,7 @@ public class CarStatusService {
 		return carStatusRepo.findAll()
 				.stream()
 				.filter(carStatus -> carStatus.getCarId().getCarType().equals(carType))
+				.filter(carStatus -> carStatus.getStatus().equals("booked"))
 				.collect(Collectors.toList());
 	}
 
@@ -98,6 +104,7 @@ public class CarStatusService {
 		return carStatusRepo.findAll()
 				.stream()
 				.filter(carStatus -> carStatus.getCarId().getCarType().equals(carType))
+				.filter(carStatus -> carStatus.getStatus().equals("available"))
 				.collect(Collectors.toList());
 	}
 }

@@ -27,7 +27,7 @@ public class CarService {
 	}
 
 	public List<Car> getCarsByType(String type) {
-		return carRepo.findByCarType(type);
+		return carRepo.findCarByCarType(type);
 	}
 
 	public Message updateCar(String carId, Car updatedCar) {
@@ -51,5 +51,9 @@ public class CarService {
 		catch(EmptyResultDataAccessException emptyResultData)	{
 			return new Message("car can't be deleted, id not found", "failure");
 		}
+	}
+
+	public List<Car> getTotalCars() {
+		return carRepo.findAll();
 	}
 }

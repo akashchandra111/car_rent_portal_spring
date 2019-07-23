@@ -3,6 +3,7 @@ package com.rentocar.service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,29 +24,17 @@ public class UserLogService {
 	}
 
 	public List<UserLog> getBookingHistory(String userId) {
-//		return userLogRepo.findByUserId(userId);
-		List<UserLog> bookingHistory = userLogRepo.findUserLogByUserId(userId);
-		
-//		Collections.sort(bookingHistory,
-//			new Comparator<UserLog>()	{
-//				@Override
-//				public int compare(UserLog user1, UserLog user2)	{
-//					if(new Long(user1.getStartTime()) > new Long(user2.getStartTime()))	{
-//						return 1;
-//					}
-//					else	{
-//						return -1;
-//					}
-//				}
-//			}
-//		);
+//		List<UserLog> bookingHistory = userLogRepo.findUserLogByUserId(userId);
+		List<UserLog> bookingHistory = userLogRepo.findAll().stream()
+				.filter(userLog -> userLog.getUserId().getUserId().equals(userId))
+				.collect(Collectors.toList());
 		
 		Collections.sort(bookingHistory, 
 			(user1, user2) ->	{
 				if(new Long(user1.getStartTime()) > new Long(user2.getStartTime()))	{
-					return 1;
+					return -1;
 				}
-				else return -1;
+				else return +1;
 			}
 		);
 		

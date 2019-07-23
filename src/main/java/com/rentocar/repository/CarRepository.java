@@ -8,5 +8,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.rentocar.model.Car;
 
 public interface CarRepository extends MongoRepository<Car, String> {
-	public List<Car> findByCarType(String type);
+
+	List<Car> findCarByCarType(String type);
 }

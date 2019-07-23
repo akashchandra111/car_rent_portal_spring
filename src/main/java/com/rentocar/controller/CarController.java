@@ -107,6 +107,11 @@ public class CarController {
 	 */
 	@DeleteMapping("/delete/{carId}")
 	public Message deleteCar(@PathVariable("carId") String carId)	{
-			return carService.deleteCar(carId);
+		return carService.deleteCar(carId);
+	}
+	
+	@GetMapping("/total")
+	public List<Car> totalCars()	{
+		return carService.getTotalCars();
 	}
 }
